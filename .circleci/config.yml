@@ -8,7 +8,6 @@ jobs:
       - run: 
           name: "Setup custom environment variables"
           command: echo 'export ARTIFACTORY_URL="https://monacohq.jfrog.io/"'
-          command: echo 'export ARTIFACTORY_USER="sai.sankar@crypto.com"'
       - run: 
           name: Install jFrog CLI
           command: curl -fL https://getcli.jfrog.io | sh
