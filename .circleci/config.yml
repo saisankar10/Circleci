@@ -9,7 +9,7 @@ jobs:
 				command: 
 					curl -fL https://getcli.jfrog.io | sh
 					chmod a+x jfrog && sudo mv jfrog /usr/local/bin
-      - run
+      			- run:
 				name: Configure Jfrog CLI
 				command: |
 					jfrog rt c --user=${ARTIFACTORY_USER} --url=${ARTIFACTORY_URL} --apikey=${ARTIFACTORY_API_KEY} --interactive=false
