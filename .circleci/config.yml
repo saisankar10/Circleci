@@ -7,6 +7,6 @@ jobs:
     steps:
       - checkout
       - run: 'Write-Host "Hello, Windows"'
-      - run:
-	  name: Install jFrog CLI
-	  command: curl -fL https://getcli.jfrog.io | sh
+      - run: 
+      	name: Install jFrog CLI
+      	command: curl -fL https://getcli.jfrog.io | sh
