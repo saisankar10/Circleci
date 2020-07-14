@@ -13,6 +13,6 @@ jobs:
           name: Push to Artifactory
           command: |
             - ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_API_KEY --interactive=false
-			      - ./jfrog rt npmi npm-virtual --build-name=circleci-npm-artifactory --build-number=$CIRCLE_BUILD_NUM
-			      - ./jfrog rt bce circleci-npm-artifactory $CIRCLE_BUILD_NUM
-			      - ./jfrog rt npmp npm-virtual --build-name=circleci-npm-artifactory --build-number=$CIRCLE_BUILD_NUM
+	    - ./jfrog rt npmi npm-virtual --build-name=circleci-npm-artifactory --build-number=$CIRCLE_BUILD_NUM
+	    - ./jfrog rt bce circleci-npm-artifactory $CIRCLE_BUILD_NUM
+	    - ./jfrog rt npmp npm-virtual --build-name=circleci-npm-artifactory --build-number=$CIRCLE_BUILD_NUM
