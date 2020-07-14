@@ -12,7 +12,6 @@ jobs:
           name: maven build
           command: |
             mvn clean install
-		# Install JFrog CLI
       - run:
           name: Install jFrog CLI
           command: curl -fL https://getcli.jfrog.io | sh
