@@ -28,7 +28,7 @@ jobs:
       - run: ./jfrog rt c show
       - run: ./jfrog rt bce JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt bp JCircleCI-Demo $CIRCLE_BUILD_NUM
-      - run: ./jfrog rt bpr gitlab-intern-build $CI_JOB_ID npm-demo-registry
+      - run: ./jfrog rt bpr JCircleCI-Demo $CIRCLE_BUILD_NUM npm-demo-registry
       - slack/approval:
           message: "Artifacts are ready and has been deployed in the Artifactory, Please apply to publish the artifactory in Npm registry" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
