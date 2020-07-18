@@ -18,14 +18,18 @@ jobs:
       - run: ./jfrog rt c show
       - run: ./jfrog rt u "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
   Publish_Npm_registry:
-    machine:
-      image: 'ubuntu-1604:201903-01'
     steps:
+      - run: echo "Install Jfrog CLI"
+      - run: curl -fL https://getcli.jfrog.io | sh
+      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
+      - run: ./jfrog rt dl "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - run: ./jfrog rt c show
       - run: ./jfrog rt bce JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt bp JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt bpr gitlab-intern-build $CI_JOB_ID npm-demo-registry
       - slack/approval:
           message: "Artifacts are ready and has been deployed in the Artifactory, Please apply to publish the artifactory in Npm registry" # Optional: Enter your own message
+          title: "Approval Needed for Publishing to Npm registry"
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "webhook" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
