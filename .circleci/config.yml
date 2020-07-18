@@ -8,6 +8,8 @@ jobs:
       - run: echo "DemoBuild"
       - run: touch "build-artifacts"
   Artifact_Push:
+    machine:
+      image: 'ubuntu-1604:201903-01'
     steps:
       - run: echo "Install Jfrog CLI"
       - run: curl -fL https://getcli.jfrog.io | sh
@@ -16,6 +18,8 @@ jobs:
       - run: ./jfrog rt c show
       - run: ./jfrog rt u "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
   Publish_Npm_registry:
+    machine:
+      image: 'ubuntu-1604:201903-01'
     steps:
       - run: ./jfrog rt bce JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt bp JCircleCI-Demo $CIRCLE_BUILD_NUM
