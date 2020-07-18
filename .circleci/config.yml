@@ -1,20 +1,22 @@
-version: 2
-# Build Artifacts and Publish to Jfrog
+version: 2.1
+orbs:
+  slack: circleci/slack@3.4.2/*
 jobs:
-  upload-artifact:
-    docker:
-      - image: circleci/openjdk:8u232-jdk-stretch-browsers
-    working_directory: ~/repo
+  build:
+    machine:
+      image: 'ubuntu-1604:201903-01'
     steps:
       - checkout
-      - run:
-          name: Install jFrog CLI
-          command: curl -fL https://getcli.jfrog.io | sh
-      - run:
-          name: Push to Artifactory
-          command: |
-            ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
-            ./jfrog rt c show
-            #./jfrog rt u <path/to/artifact> <artifactory_repo_name> --build-name=<name_you_give_to_build> --build-number=$CIRCLE_BUILD_NUM
-            #./jfrog rt bce <name_you_give_to_build> $CIRCLE_BUILD_NUM  # collects all environment variables on the agent
-            #./jfrog rt bp <name_you_give_to_build> $CIRCLE_BUILD_NUM  # attaches ^^ to the build in artifactory
+      - run: echo "DemoBuild"
+      - run: echo "Install Jfrog CLI"
+      - run: curl -fL https://getcli.jfrog.io | sh
+      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
+      - run: touch "build-artifacts"
+      - run: ./jfrog rt c show
+      - run: ./jfrog rt u "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - slack/approval:
+          message: "Artifacts are ready and has been deployed in the Artifactory, Please apply to publish the artifactory in Npm registry" # Optional: Enter your own message
+          title: "Approval Needed for Publishing to Npm registry"
+          mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
+          color: "#42e2f4" # Optional: Assign custom colors for each approval message
+          webhook: "webhook" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
