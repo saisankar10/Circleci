@@ -48,6 +48,14 @@ workflows:
           requires:
             - build
             - Artifact_Push
-      - Publish_Npm_registry:
+      - slack/approval1:
+          type: approval
           requires:
             - slack/approval
+      - slack/approval2:
+          type: approval
+          requires:
+            - slack/approval1
+      - Publish_Npm_registry:
+          requires:
+            - slack/approval2
