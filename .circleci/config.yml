@@ -50,4 +50,4 @@ workflows:
             - Artifact_Push
       - Publish_Npm_registry:
           requires:
-            - Approval
+            - slack/approval
