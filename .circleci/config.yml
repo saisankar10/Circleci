@@ -85,11 +85,7 @@ workflows:
           type: approval
           requires:
             - Level1 Approvals
-      - slack/approval1:
-          type: approval
-          requires:
-            - Level2 Approvals
       - Publish_Npm_registry:
             requires:
-            - Level3 Approvals
+            - slack/approval
       
