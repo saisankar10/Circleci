@@ -23,7 +23,7 @@ jobs:
     steps:
        - slack/approval:
           message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
-          mentions: "W015C9HCQSH,W01232MH4GM" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
+          mentions: "W015C9HCQSH,W01232MH4GM,W016RHZPZ1A" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
           url: 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'
