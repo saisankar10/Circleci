@@ -81,7 +81,7 @@ workflows:
       - Artifact_Push:
             requires:
               - build
-      slack/approval:
+      - slack/approval:
           type: approval
           requires:
             - Level1 Approvals
