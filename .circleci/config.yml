@@ -23,7 +23,7 @@ jobs:
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
           url: 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'
-  Level1 Approvals:
+  Level1_Approvals:
     machine:
         image: 'ubuntu-1604:201903-01'
     steps:
@@ -33,12 +33,12 @@ jobs:
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
           url: 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'
-  Level2 Approvals:
+  Level2_Approvals:
     machine:
         image: 'ubuntu-1604:201903-01'
     steps:
        - slack/approval:
-          message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
+          message: "Deployment Pending for Approvals level2 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
@@ -48,7 +48,7 @@ jobs:
         image: 'ubuntu-1604:201903-01'
     steps:
        - slack/approval:
-          message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
+          message: "Deployment Pending for Approvals Level3 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
@@ -81,11 +81,23 @@ workflows:
       - Artifact_Push:
             requires:
               - build
+      - Level1_Approvals:
+            requires:
+              - build
+              - Artifact_Push
       - slack/approval:
           type: approval
           requires:
             - Level1 Approvals
+      - Level2_Approvals:
+          type: approval
+          requires:
+            - slack/approval
+      - Level3_Approvals:
+          type: approval
+          requires:
+            - Level2_Approvals
       - Publish_Npm_registry:
             requires:
-            - slack/approval
+            - Level3_Approval
       
