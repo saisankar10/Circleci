@@ -99,5 +99,5 @@ workflows:
             - Level2_Approvals
       - Publish_Npm_registry:
             requires:
-            - Level3_Approval
+            - Level3_Approvals
       
