@@ -23,11 +23,11 @@ jobs:
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
           url: 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'
-  Level1_Approvals:
+  Slack_setup:
     machine:
         image: 'ubuntu-1604:201903-01'
     steps:
-       - slack/approval:
+       - slack/notify:
           message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
@@ -81,14 +81,14 @@ workflows:
       - Artifact_Push:
             requires:
               - build
-      - Level1_Approvals:
+      - Slack_setup:
             requires:
               - build
               - Artifact_Push
       - Level2_Approvals:
           type: approval
           requires:
-            - Level1_Approvals
+            - Slack_setup
       - Level3_Approvals:
           type: approval
           requires:
