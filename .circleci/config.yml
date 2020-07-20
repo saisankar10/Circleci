@@ -33,7 +33,7 @@ jobs:
           message: "Artifacts are ready and has been deployed in the Artifactory, Please approve to publish the artifactory in Npm registry" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
-          webhook: "webhook" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
+          webhook: "SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
 orbs:
   slack: circleci/slack@3.4.2
 workflows:
@@ -43,7 +43,7 @@ workflows:
       - Artifact_Push:
             requires:
               - build
-      - Approval:
+      - slack/approval:
           type: approval
           requires:
             - build
