@@ -17,17 +17,11 @@ jobs:
       - run: touch "build-artifacts"
       - run: ./jfrog rt c show
       - run: ./jfrog rt u "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
-      - slack/approval:
-          message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
-          mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
-          color: "#42e2f4" # Optional: Assign custom colors for each approval message
-          webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
-          url: 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'
   Slack_setup:
     machine:
         image: 'ubuntu-1604:201903-01'
     steps:
-       - slack/notify:
+       - slack/approval:
           message: "Deployment Pending for Approvals 'https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}'" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
@@ -68,7 +62,7 @@ jobs:
       - run: ./jfrog rt bp JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt bpr JCircleCI-Demo $CIRCLE_BUILD_NUM npm-demo-registry
       - slack/notify:
-          message: "Artifacts are ready and has been deployed in the Artifactory, Please approve to publish the artifactory in Npm registry" # Optional: Enter your own message
+          message: "Deployment was successful. Artifacts successfully pushed to NPM registry" # Optional: Enter your own message
           mentions: "sai.sankar@crypto.com" # Optional: Enter the Slack IDs of any user or group (sub_team) to be mentioned
           color: "#42e2f4" # Optional: Assign custom colors for each approval message
           webhook: "$SLACK_WEBHOOK" # Optional: Enter a specific webhook here or the default will use $SLACK_WEBHOOK
