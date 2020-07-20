@@ -79,15 +79,25 @@ workflows:
             requires:
               - build
               - Artifact_Push
+      - hold:
+            type: approval
+            requires:
+              - Slack_setup
       - Level2_Approvals:
-          type: approval
-          requires:
-            - Slack_setup
+            requires:
+              - hold
+      - hold2:
+            type: approval
+            requires: 
+              - Level2_Approvals              
       - Level3_Approvals:
-          type: approval
-          requires:
-            - Level2_Approvals
+            requires:
+              - hold2
+      - hold3:
+            type: approval
+            requires:
+              - Level3_Aprrovals
       - Publish_Npm_registry:
             requires:
-            - Level3_Approvals
+            - hold3
       
