@@ -17,6 +17,12 @@ jobs:
       - run: touch "build-artifacts"
       - run: ./jfrog rt c show
       - run: ./jfrog rt u "build-artifacts" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - slack/approval-notification:
+          color: "#aa7fcd" # Optional: Enter your own message
+          message: "Deployment pending approval" # Optional: Custom approval message
+          webhook: '$SLACK_WEBHOOK'
+          Url: "https://app.circleci.com/pipelines/github/saisankar10/Circleci/"
+    
   Publish_Npm_registry:
     machine:
       image: 'ubuntu-1604:201903-01'
@@ -43,19 +49,8 @@ workflows:
       - Artifact_Push:
             requires:
               - build
-      - slack/approval:
-          type: approval
-          requires:
+      - Publish_Npm_registry:
+            requires:
             - build
             - Artifact_Push
-      - slack/approval1:
-          type: approval
-          requires:
-            - slack/approval
-      - slack/approval2:
-          type: approval
-          requires:
-            - slack/approval1
-      - Publish_Npm_registry:
-          requires:
-            - slack/approval2
+      
