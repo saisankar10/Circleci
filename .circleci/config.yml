@@ -78,8 +78,11 @@ jobs:
       - run: echo "Install Jfrog CLI"
       - run: curl -fL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
-      - run: ./jfrog rt dl "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - run: ./jfrog rt dl "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM > ~/repo
       - run: ./jfrog rt c show
+      - run: cd ~/repo/nodejs-circleci-1.0.5/-
+      - run: tar -C ~/repo ~/repo/nodejs-circleci-1.0.5/-/*.tgz
+      - run: cd ~/repo/package
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
