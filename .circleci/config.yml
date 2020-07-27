@@ -25,7 +25,6 @@ jobs:
       - run: ./jfrog rt c show
       - run: ./jfrog rt npmi "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM 
       - run: ./jfrog rt npmp "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM 
-      - run: ./jfrog rt bs JCircleCI-Demo $CIRCLE_BUILD_NUM
       - store_test_results:
           path: test-results
       - store_artifacts:
