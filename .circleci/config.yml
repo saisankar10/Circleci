@@ -82,7 +82,8 @@ jobs:
       - run: ./jfrog rt dl "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM
       - run: ./jfrog rt c show
       - run: cd ~/repo/nodejs-circleci-1.0.5/-
-      - run: tar -C ~/repo ~/repo/nodejs-circleci-1.0.5/-/*.tgz
+      - run: dir
+      - run: tar -C ~/repo ~/repo/nodejs-circleci-1.0.5/-/nodejs-circleci-1.0.5-0.0.1.tgz.tgz
       - run: cd ~/repo/package
       - run:
           name: Authenticate with registry
