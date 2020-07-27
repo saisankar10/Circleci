@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-sai1531",
-  "version": "0.0.5",
+  "name": "sai-circlenpm",
+  "version": "0.0.1",
   "description": "nodejs-circleci",
   "main": "app.js",
   "directories": {
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/saisankar10/Npm-CircleCI-Jfrog.git"
   },
-  "author": "Sai Sankar",
+  "author": "sai",
   "license": "ISC",
   "homepage": "https://github.com/saisankar10/Npm-CircleCI-Jfrog.git#readme",
   "dependencies": {
