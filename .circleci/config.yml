@@ -90,7 +90,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: cd ~/repo/package && npm publish
       - store_test_results:
           path: test-results
       - store_artifacts:
