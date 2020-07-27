@@ -1,6 +1,6 @@
 {
   "name": "nodejs-sai1531",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "nodejs-circleci",
   "main": "app.js",
   "directories": {
