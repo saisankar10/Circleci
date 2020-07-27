@@ -80,7 +80,6 @@ jobs:
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt dl "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
       - run: ./jfrog rt c show
-      - run: ls-lrt
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
