@@ -23,8 +23,9 @@ jobs:
       - run: curl -fL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt c show
-      - run: ./jfrog rt u "package.json" "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
-      - run: ./jfrog rt bc JCircleCI-Demo $CIRCLE_BUILD_NUM
+      - run: ./jfrog rt npmi "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - run: ./jfrog rt npmp "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM --flat=true
+      - run: ./jfrog rt bs JCircleCI-Demo $CIRCLE_BUILD_NUM
       - store_test_results:
           path: test-results
       - store_artifacts:
