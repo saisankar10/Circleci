@@ -83,7 +83,7 @@ jobs:
       - run: ./jfrog rt c show
       - run: cd ~/repo/nodejs-circleci-1.0.5/-
       - run: dir
-      - run: tar -C ~/repo -xvf ~/repo/sai-circlenpm/-/sai-circlenpm-0.0.1.tgz
+      - run: tar -C ~/repo -xvf ~/repo/nodejs-circleci/-/nodejs-circleci-0.0.3.tgz
       - run: cd ~/repo/package
       - run:
           name: Authenticate with registry
