@@ -1,6 +1,6 @@
 {
   "name": "nodejs-circleci",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "nodejs-circleci",
   "main": "app.js",
   "directories": {
