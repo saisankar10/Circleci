@@ -80,11 +80,11 @@ jobs:
       - run: cd ~/repo
       - run: curl -fL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
-      - run: ./jfrog rt dl "Demo-npm-local/nodejs-circleci/-/" --sort-by=created --sort-order=desc --limit=1
+      - run: ./jfrog rt dl "Demo-npm-local/nodejs-circleci/-/nodejs-circleci-0.0.8.tgz/package" --sort-by=created --sort-order=desc --limit=1
       - run: ./jfrog rt c show
       - run: cd ~/repo
       - run: dir
-      - run: tar -C ~/repo -xvf ~/repo/nodejs-circleci/-/nodejs-circleci-0.0.5.tgz
+      #- run: tar -C ~/repo -xvf ~/repo/nodejs-circleci/-/nodejs-circleci-0.0.4.tgz
       #- run: dir ~/repo/package
       - run:
           name: Authenticate with registry
@@ -92,7 +92,7 @@ jobs:
       #- run: vi ~/repo/.npmrc
       - run:
           name: Publish npm package
-          command: cd ~/repo/package && npm publish
+          command: cd ~/repo && npm publish
       - store_test_results:
           path: test-results
       - store_artifacts:
