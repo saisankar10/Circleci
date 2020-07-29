@@ -84,7 +84,7 @@ jobs:
       - run: ./jfrog rt c show
       - run: cd ~/repo
       - run: dir
-      #- run: tar -C ~/repo -xvf ~/repo/nodejs-circleci/-/nodejs-circleci-0.0.4.tgz
+      - run: tar -C ~/repo -xvf ~/repo/nodejs-circleci/-/nodejs-circleci-0.0.5.tgz
       #- run: dir ~/repo/package
       - run:
           name: Authenticate with registry
@@ -92,7 +92,7 @@ jobs:
       #- run: vi ~/repo/.npmrc
       - run:
           name: Publish npm package
-          command: cd ~/repo/*.tgz/package && npm publish
+          command: cd ~/repo/package && npm publish
       - store_test_results:
           path: test-results
       - store_artifacts:
