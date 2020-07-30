@@ -80,7 +80,7 @@ jobs:
       - run: cd ~/repo
       - run: curl -fL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
-      - run: ./jfrog rt dl "Demo-npm-local/nodejs-circleci/-/nodejs-circleci-0.0.8.tgz/package" --sort-by=created --sort-order=desc --limit=1
+      - run: ./jfrog rt dl "Demo-npm-local/nodejs-circleci/-/nodejs-circleci-0.0.9.tgz/package" --sort-by=created --sort-order=desc --limit=1
       - run: ./jfrog rt c show
       - run: cd ~/repo
       - run: dir
@@ -103,28 +103,28 @@ workflows:
   your-workflow:
     jobs:
       - build
-      #- Slack_setup:
-      #      requires:
-      #        - build
-      #- hold:
-      #      type: approval
-      #      requires:
-      #        - Slack_setup
-      #- Level2_Approvals:
-      #      requires:
-      #        - hold
-      #- hold2:
-      #      type: approval
-      #      requires: 
-      #        - Level2_Approvals              
-      #- Level3_Approvals:
-      #      requires:
-      #        - hold2
-      #- hold3:
-      #      type: approval
-      #      requires:
-      #        - Level3_Approvals
+      - Slack_setup:
+            requires:
+              - build
+      - hold:
+            type: approval
+            requires:
+              - Slack_setup
+      - Level2_Approvals:
+            requires:
+              - hold
+      - hold2:
+            type: approval
+            requires: 
+              - Level2_Approvals              
+      - Level3_Approvals:
+            requires:
+              - hold2
+      - hold3:
+            type: approval
+            requires:
+              - Level3_Approvals
       - Publish_Npm_registry:
             requires:
-            - build
+            - hold3
       
