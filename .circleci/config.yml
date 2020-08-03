@@ -105,9 +105,7 @@ workflows:
   your-workflow:
     jobs:
       - build
-      - Slack_setup:
-            post-steps:
-              - jira/notify
+      - Slack_setup
       - hold:
             type: approval
             requires:
