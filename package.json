@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-circleci",
-  "version": "0.1.1",
+  "name": "crypto-test1/nodejs-circleci",
+  "version": "0.1.2",
   "description": "nodejs-circleci",
   "main": "app.js",
   "directories": {
