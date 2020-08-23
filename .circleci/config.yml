@@ -20,12 +20,8 @@ jobs:
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt c show
       - run: ./jfrog rt npmi "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM 
-      #- run: ./jfrog rt npmp "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM
-      - run: ./jfrog rt bag JCircleCI-Demo $CIRCLE_BUILD_NUM
-      - run: ./jfrog rt bce JCircleCI-Demo $CIRCLE_BUILD_NUM
       - run: ./jfrog rt npmp "Demo-npm-local" --build-name=JCircleCI-Demo --build-number=$CIRCLE_BUILD_NUM
-      - run: ./jfrog rt bp JCircleCI-Demo $CIRCLE_BUILD_NUM
-      - run: ./jfrog rt bs JCircleCI-Demo 1.0.0
+
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -93,7 +89,7 @@ jobs:
       #- run: vi ~/repo/.npmrc
       - run:
           name: Publish npm package
-          command: cd ~/repo && npm publish
+          command:npm publish *.tgz --access public
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -104,7 +100,7 @@ orbs:
 workflows:
   your-workflow:
     jobs:
-      - build
+      #- build
       - Slack_setup
       #- hold:
       #      type: approval
